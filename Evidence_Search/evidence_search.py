@@ -38,14 +38,14 @@ class DataCollection():
             author = page_content["author"]
             date = page_content["date"]
             url = page_content["url"]
-            article = page_content["text"] if page_content["text"] else page_content["raw_text"]
+            # article = page_content["text"] if page_content["text"] else page_content["raw_text"]
             
             search_content = {
                 "title": title,
                 "date": date,
                 "author": author,
                 "url": url,
-                "article": article,
+                # "article": article,
             }
                 
             return search_content
@@ -99,16 +99,16 @@ def read_csv_and_search(file_path, lang, num_pages, num_item_per_page):
     data_collect = DataCollection(lang=lang, num_pages=num_pages, num_item_per_page=num_item_per_page)
     all_results = []
 
-    with open(file_path, newline='', encoding='utf-8') as csvfile:
-        reader = csv.DictReader(csvfile)
+    with open(file_path, newline='', encoding='latin-1') as csvfile:
+        reader = csv.DictReader(csvfile, delimiter=';')
         for row in reader:
-            header = row['header']  # Access the 'header' column
-            results = data_collect.search(header)
+            Headline = row['Headline']  # Access the 'Headline' column
+            results = data_collect.search(Headline)
             all_results.extend(results)
 
-    with open(f"datasets/all_results.json", "w") as json_w:
-        json.dump(all_results, json_w, indent=4)
+    with open(f"datasets/all_results.json", "w", encoding='utf-8') as json_w:
+        json.dump(all_results, json_w, indent=4, ensure_ascii=False)
 
 if __name__ == "__main__":
-    csv_file_path = "path_to_your_csv_file.csv"  # Gantilah dengan path ke file CSV Anda
-    read_csv_and_search(csv_file_path, lang="id", num_pages=2, num_item_per_page=5)
+    csv_file_path = "../datasets/turnBackHoax.csv"
+    read_csv_and_search(csv_file_path, lang="id", num_pages=1, num_item_per_page=1)
