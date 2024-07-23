@@ -134,4 +134,4 @@ class DataCollection():
 
 if __name__ == "__main__":
     data_collect = DataCollection(lang="id", num_pages=10, num_item_per_page=5)
-    data_collect.search("apa ibu kota negara indonesia")
+    data_collect.search("apa itu anime")
