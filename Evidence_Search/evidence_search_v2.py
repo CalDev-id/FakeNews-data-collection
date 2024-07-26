@@ -18,9 +18,13 @@ class DataCollection():
         driver = getattr(self.thread_local, 'driver', None)
         if driver is None:
             chrome_options = webdriver.ChromeOptions()
-            chrome_options.add_argument('--headless=new')
-            driver = webdriver.Chrome(options=chrome_options)
+            chrome_options.add_argument('user-data-dir=C:/Users/haica/AppData/Local/Google/Chrome/User Data')
+            driver = webdriver.Chrome( options=chrome_options)
+            # edge_options = webdriver.EdgeOptions()
+            # edge_options.add_argument('--log-level=1')
+            # driver = webdriver.Edge(options = edge_options)
             setattr(self.thread_local, 'driver', driver)
+            
         return driver
     
     def visit_content(self, target_url):
@@ -108,7 +112,7 @@ def read_csv_and_search(file_path, lang, num_pages, num_item_per_page):
             results = data_collect.search(Headline)
             all_results.extend(results)
 
-    with open(f"datasets/all_result_v2.json", "w") as json_w:
+    with open(f"datasets/all_result_v3.json", "w") as json_w:
         json.dump(all_results, json_w, indent=4)
 
 if __name__ == "__main__":
